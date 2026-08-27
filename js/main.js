@@ -185,11 +185,7 @@
   });
 
   $$('input[name="w-location"]').forEach(function (r) {
-    r.addEventListener('change', function () {
-      picked.location = r.value;
-      var select = $('#f-location');
-      if (select) select.value = r.value;
-    });
+    r.addEventListener('change', function () { picked.location = r.value; });
   });
 
   var widgetBook = $('#widget-book');
@@ -264,129 +260,7 @@
     openWhatsApp(lines);
   }
 
-  /* ---------- appointment form ---------- */
-  var apptForm   = $('#appt-form');
-  var apptError  = $('#appt-error');
-  var apptStatus = $('#appt-status');
-  var fName = $('#f-name'), fPhone = $('#f-phone'), fLocation = $('#f-location');
-  var fDate = $('#f-date'), fTime = $('#f-time'), fConcern = $('#f-concern'), fMessage = $('#f-message');
-
-  function setInvalid(field, invalid) {
-    if (!field) return;
-    if (invalid) field.setAttribute('aria-invalid', 'true');
-    else field.removeAttribute('aria-invalid');
-  }
-
-  function showFormError(message, field) {
-    if (apptError) {
-      apptError.textContent = message;
-      apptError.classList.add('is-visible');
-    }
-    if (apptStatus) apptStatus.classList.remove('is-visible');
-    if (field) field.focus();
-  }
-
-  function clearFormError() {
-    if (apptError) { apptError.textContent = ''; apptError.classList.remove('is-visible'); }
-    setInvalid(fName, false);
-    setInvalid(fPhone, false);
-    setInvalid(fLocation, false);
-  }
-
-  function formatDate(value) {
-    if (!value) return '';
-    var parts = value.split('-');
-    if (parts.length !== 3) return value;
-    return parts[2] + '-' + parts[1] + '-' + parts[0];
-  }
-
-  if (fDate) {
-    var now = new Date();
-    fDate.min = isoOf(new Date(now.getFullYear(), now.getMonth(), now.getDate()));
-  }
-
-  if (fLocation) {
-    fLocation.addEventListener('change', function () {
-      picked.location = fLocation.value;
-      var radio = $('input[name="w-location"][value="' + fLocation.value + '"]');
-      if (radio) radio.checked = true;
-    });
-  }
-
-  [fName, fPhone].forEach(function (field) {
-    if (!field) return;
-    field.addEventListener('input', function () {
-      setInvalid(field, false);
-      if (apptError && apptError.classList.contains('is-visible')) clearFormError();
-    });
-  });
-
-  if (apptForm) {
-    apptForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      clearFormError();
-
-      var name = (fName && fName.value || '').trim();
-      if (name.length < 2) {
-        setInvalid(fName, true);
-        showFormError('Please enter your full name.', fName);
-        return;
-      }
-
-      var digits = normalisePhone(fPhone && fPhone.value);
-      if (!/^[6-9][0-9]{9}$/.test(digits)) {
-        setInvalid(fPhone, true);
-        showFormError('Please enter a valid 10-digit Indian mobile number.', fPhone);
-        return;
-      }
-
-      var location = (fLocation && fLocation.value) || '';
-      if (!location) {
-        setInvalid(fLocation, true);
-        showFormError('Please select a preferred consultation location.', fLocation);
-        return;
-      }
-
-      picked.location = location;
-
-      var lines = [
-        'Gallbladder consultation request — Advitya Healthcares',
-        'Name: ' + name,
-        'Mobile: +91 ' + digits,
-        'Preferred location: ' + location
-      ];
-      if (fDate && fDate.value) lines.push('Preferred date: ' + formatDate(fDate.value));
-      if (fTime && fTime.value) lines.push('Preferred time: ' + fTime.value);
-      if (fConcern && fConcern.value) lines.push('Reason for consultation: ' + fConcern.value);
-      if (fMessage && fMessage.value.trim()) lines.push('Message: ' + fMessage.value.trim());
-
-      if (apptStatus) {
-        apptStatus.textContent = 'Opening WhatsApp with your appointment request …';
-        apptStatus.classList.add('is-visible');
-      }
-      openWhatsApp(lines);
-
-      setTimeout(function () {
-        apptForm.reset();
-        if (fLocation) fLocation.value = picked.location;
-        if (apptStatus) {
-          apptStatus.textContent = 'Request sent. Our team will call you back to confirm the venue and slot.';
-        }
-      }, 1200);
-    });
-  }
-
-  /* ---------- booking links: prefill location, then go to the form ---------- */
-  function scrollToAppointment() {
-    var target = $('#appointment');
-    if (!target) return;
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h'), 10) || 0;
-    var top = target.getBoundingClientRect().top + window.pageYOffset - headerH - 14;
-    window.scrollTo({ top: top, behavior: reduce ? 'auto' : 'smooth' });
-    setTimeout(function () { if (fName) fName.focus({ preventScroll: true }); }, reduce ? 60 : 520);
-  }
-
+  /* ---------- booking links ---------- */
   $$('[data-book]').forEach(function (el) {
     el.addEventListener('click', function (e) {
       if (el.hasAttribute('data-loc')) {
@@ -394,10 +268,9 @@
         picked.location = value;
         var radio = $('input[name="w-location"][value="' + value + '"]');
         if (radio) radio.checked = true;
-        if (fLocation) fLocation.value = value;
       }
       e.preventDefault();
-      scrollToAppointment();
+      openModal(el);
     });
   });
 
