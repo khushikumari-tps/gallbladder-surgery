@@ -158,6 +158,23 @@
 
 
 
+<div class="langfix">
+      <div class="lang notranslate" translate="no" data-lang-root>
+        <button class="lang__trigger" type="button" id="lang-trigger-h"
+                aria-expanded="false" aria-haspopup="listbox" aria-controls="lang-menu-h">
+          <svg class="lang__globe" aria-hidden="true"><use href="#i-globe"/></svg>
+          <span class="lang__current" data-lang-label>English</span>
+          <span class="lang__short" data-lang-short>EN</span>
+          <svg class="lang__chev" aria-hidden="true"><use href="#i-chevron"/></svg>
+        </button>
+        <ul class="lang__menu" id="lang-menu-h" role="listbox" aria-labelledby="lang-trigger-h" tabindex="-1" hidden>
+          <li role="option" aria-selected="true"><button class="lang__opt is-active" type="button" data-lang="en" lang="en"><span class="lang__code">EN</span><span class="lang__name">English</span><svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg></button></li>
+          <li role="option" aria-selected="false"><button class="lang__opt" type="button" data-lang="hi" lang="hi"><span class="lang__code">HI</span><span class="lang__name">हिन्दी <i>Hindi</i></span><svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg></button></li>
+          <li role="option" aria-selected="false"><button class="lang__opt" type="button" data-lang="bn" lang="bn"><span class="lang__code">BN</span><span class="lang__name">বাংলা <i>Bengali</i></span><svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg></button></li>
+        </ul>
+      </div>
+</div>
+
 <button class="burger" type="button" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
   <svg><use href="#i-menu"/></svg>
 </button>
@@ -170,21 +187,6 @@
     <button class="drawer__close" type="button" id="drawer-close" aria-label="Close menu"><svg><use href="#i-close"/></svg></button>
   </div>
 
-  <div class="drawer__lang">
-      <div class="lang notranslate" translate="no" data-lang-root>
-        <button class="lang__trigger" type="button" id="lang-trigger-m"
-                aria-expanded="false" aria-haspopup="listbox" aria-controls="lang-menu-m">
-          <svg class="lang__globe" aria-hidden="true"><use href="#i-globe"/></svg>
-          <span class="lang__current" data-lang-label>English</span>
-          <svg class="lang__chev" aria-hidden="true"><use href="#i-chevron"/></svg>
-        </button>
-        <ul class="lang__menu" id="lang-menu-m" role="listbox" aria-labelledby="lang-trigger-m" tabindex="-1" hidden>
-          <li role="option" aria-selected="true"><button class="lang__opt is-active" type="button" data-lang="en" lang="en"><span class="lang__code">EN</span><span class="lang__name">English</span><svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg></button></li>
-          <li role="option" aria-selected="false"><button class="lang__opt" type="button" data-lang="hi" lang="hi"><span class="lang__code">HI</span><span class="lang__name">हिन्दी <i>Hindi</i></span><svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg></button></li>
-          <li role="option" aria-selected="false"><button class="lang__opt" type="button" data-lang="bn" lang="bn"><span class="lang__code">BN</span><span class="lang__name">বাংলা <i>Bengali</i></span><svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg></button></li>
-        </ul>
-      </div>
-  </div>
 
   <nav class="drawer__links" aria-label="Mobile">
     <a class="is-current" href="#top" aria-current="page">Overview</a>

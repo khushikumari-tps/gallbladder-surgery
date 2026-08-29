@@ -1578,3 +1578,35 @@ html.drawer-open{overflow:hidden}
 @media (max-width:900px){
   body.drawer-open .burger{opacity:0;pointer-events:none;transition:opacity .2s}
 }
+
+/* ==========================================================================
+   42. Language pill in the header row, immediately left of the hamburger
+   ========================================================================== */
+.langfix{
+  position:fixed;z-index:1035;
+  top:clamp(12px,1.6vw,18px);right:clamp(12px,2.4vw,30px);
+}
+.langfix .lang__short{display:none}
+
+@media (max-width:900px){
+  .langfix{
+    top:0;right:calc(clamp(12px,4vw,20px) + 50px);
+    height:clamp(74px,20vw,90px);display:flex;align-items:center;
+  }
+  /* compact on phones: globe + language code only */
+  .langfix .lang__trigger{height:42px;padding:0 10px;gap:6px}
+  .langfix .lang__current{display:none}
+  .langfix .lang__short{display:inline;font-size:.86rem;letter-spacing:.02em}
+  .langfix .lang__menu{right:0;left:auto;min-width:190px}
+}
+
+@media (max-width:400px){
+  .langfix{right:calc(10px + 46px)}
+  .langfix .lang__trigger{height:40px;padding:0 9px}
+  .langfix .lang__menu{min-width:176px}
+}
+
+/* the open drawer covers the header row */
+@media (max-width:900px){
+  body.drawer-open .langfix{opacity:0;pointer-events:none;transition:opacity .2s}
+}
