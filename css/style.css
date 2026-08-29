@@ -1610,3 +1610,54 @@ html.drawer-open{overflow:hidden}
 @media (max-width:900px){
   body.drawer-open .langfix{opacity:0;pointer-events:none;transition:opacity .2s}
 }
+
+/* ==========================================================================
+   43. Mobile header as floating pills (logo card · language · hamburger)
+   ========================================================================== */
+@media (max-width:900px){
+  /* the full-width white bar gives way to the same floating card used on desktop */
+  .mhead{display:none}
+  body{padding-top:0}
+
+  .brandmark{
+    display:inline-flex;position:fixed;z-index:1035;
+    top:12px;left:12px;
+    padding:8px 14px 8px 10px;border-radius:14px;gap:9px;
+    background:rgba(255,255,255,.96);border:1px solid rgba(158,36,48,.26);
+    box-shadow:0 0 0 1px rgba(158,36,48,.05),0 4px 14px rgba(58,10,12,.10),0 8px 22px rgba(58,10,12,.10);
+  }
+  .brandmark img{height:34px}
+  .brandmark__text{display:flex}
+  .brandmark__text b{font-size:.86rem}
+  .brandmark__text small{font-size:.58rem;letter-spacing:.12em}
+
+  /* hamburger returns to a white pill, matching the logo card */
+  .burger{
+    top:12px;right:12px;height:44px;width:44px;
+    background:rgba(255,255,255,.96);border:1px solid rgba(158,36,48,.26);border-radius:13px;
+    box-shadow:0 0 0 1px rgba(158,36,48,.05),0 4px 14px rgba(58,10,12,.10),0 8px 22px rgba(58,10,12,.10);
+  }
+  .burger svg{width:22px;height:22px}
+
+  /* language pill sits between the two, same optical row */
+  .langfix{top:12px;right:64px;height:44px;display:flex;align-items:center}
+  .langfix .lang__trigger{
+    height:44px;padding:0 10px;gap:6px;border-radius:13px;
+    border:1px solid rgba(158,36,48,.26);
+    box-shadow:0 0 0 1px rgba(158,36,48,.05),0 4px 14px rgba(58,10,12,.10),0 8px 22px rgba(58,10,12,.10);
+  }
+  .langfix .lang__menu{top:calc(100% + 10px)}
+
+  /* the hero starts under the floating row again */
+  .phero{padding-top:clamp(74px,20vw,92px)}
+}
+
+@media (max-width:400px){
+  .brandmark{padding:7px 11px 7px 9px;gap:8px}
+  .brandmark img{height:30px}
+  .brandmark__text b{font-size:.8rem}
+  .brandmark__text small{font-size:.54rem}
+  .burger{width:42px;height:42px;right:10px;top:10px}
+  .langfix{right:60px;top:10px;height:42px}
+  .langfix .lang__trigger{height:42px;padding:0 9px}
+}
