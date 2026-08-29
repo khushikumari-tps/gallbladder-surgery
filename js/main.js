@@ -132,58 +132,6 @@
     watched.forEach(function (el) { sio.observe(el); });
   }
 
-  /* ---------- desktop mega menu (hover to open, click to toggle) ---------- */
-  var megaWrap = $('#mega-wrap');
-  var megaTrigger = $('#mega-trigger');
-  var megaPanel = $('#mega-panel');
-
-  if (megaWrap && megaTrigger && megaPanel) {
-    var megaOpen = false;
-    var megaTimer = null;
-
-    var setMega = function (open) {
-      if (open === megaOpen) return;
-      megaOpen = open;
-      megaWrap.setAttribute('data-open', String(open));
-      megaTrigger.setAttribute('aria-expanded', String(open));
-      if (open) {
-        megaPanel.hidden = false;
-      } else {
-        /* keep it in the DOM until the fade finishes, so nothing snaps */
-        window.setTimeout(function () {
-          if (!megaOpen) megaPanel.hidden = true;
-        }, 240);
-      }
-    };
-
-    var openLater = function () { window.clearTimeout(megaTimer); setMega(true); };
-    var closeLater = function () {
-      window.clearTimeout(megaTimer);
-      megaTimer = window.setTimeout(function () { setMega(false); }, 140);
-    };
-
-    megaWrap.addEventListener('mouseenter', openLater);
-    megaWrap.addEventListener('mouseleave', closeLater);
-    megaTrigger.addEventListener('focus', openLater);
-
-    megaTrigger.addEventListener('click', function (e) {
-      e.preventDefault();
-      setMega(!megaOpen);
-    });
-
-    /* a link inside the panel closes it */
-    $$('a', megaPanel).forEach(function (a) {
-      a.addEventListener('click', function () { setMega(false); });
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && megaOpen) { setMega(false); megaTrigger.focus(); }
-    });
-    document.addEventListener('click', function (e) {
-      if (megaOpen && !e.target.closest('#mega-wrap')) setMega(false);
-    });
-  }
-
   /* ---------- scroll reveal ---------- */
   var revealables = $$('.reveal');
   if ('IntersectionObserver' in window) {
