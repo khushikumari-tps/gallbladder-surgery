@@ -3,7 +3,7 @@
   'use strict';
 
   var WA_NUMBER = '919211221551';
-  var $  = function (s, c) { return (c || document).querySelector(s); };
+  var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
   /* ---------- brand mark shrinks on scroll ---------- */
@@ -15,11 +15,11 @@
     window.addEventListener('scroll', syncBrand, { passive: true });
     syncBrand();
   }
-
+  //no changes
   /* ---------- mobile menu drawer ---------- */
   var burger = $('#burger');
   var drawer = $('#drawer');
-  var scrim  = $('#scrim');
+  var scrim = $('#scrim');
   var drawerClose = $('#drawer-close');
 
   if (burger && drawer && scrim) {
@@ -212,9 +212,9 @@
   });
 
   /* ---------- booking widget: location, date and time pickers ---------- */
-  var DAYS  = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   var TIMES = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-               '12:00', '12:30', '16:00', '16:30', '17:00', '17:30'];
+    '12:00', '12:30', '16:00', '16:30', '17:00', '17:30'];
 
   var picked = { location: 'Kolkata', date: '', time: '' };
 
@@ -437,11 +437,11 @@
     shareBtn.addEventListener('click', function () {
       var data = { title: document.title, url: location.href };
       if (navigator.share) {
-        navigator.share(data).catch(function () {});
+        navigator.share(data).catch(function () { });
       } else if (navigator.clipboard) {
         navigator.clipboard.writeText(location.href).then(function () {
           shareBtn.setAttribute('aria-label', 'Page link copied');
-        }).catch(function () {});
+        }).catch(function () { });
       }
     });
   }
@@ -463,8 +463,8 @@
     if (!roots.length) return;
 
     var NAMES = {
-      en: 'English', bn: 'বাংলা',   gu: 'ગુજરાતી', hi: 'हिन्दी',  kn: 'ಕನ್ನಡ',
-      ml: 'മലയാളം', mr: 'मराठी',   or: 'ଓଡ଼ିଆ',    ta: 'தமிழ்'
+      en: 'English', bn: 'বাংলা', gu: 'ગુજરાતી', hi: 'हिन्दी', kn: 'ಕನ್ನಡ',
+      ml: 'മലയാളം', mr: 'मराठी', or: 'ଓଡ଼ିଆ', ta: 'தமிழ்'
     };
     var STORE = 'adv-lang';
 
@@ -499,7 +499,7 @@
       try { return localStorage.getItem(STORE); } catch (e) { return null; }
     }
     function remember(code) {
-      try { localStorage.setItem(STORE, code); } catch (e) {}
+      try { localStorage.setItem(STORE, code); } catch (e) { }
     }
 
     /* paint every instance so desktop and drawer stay in step */
