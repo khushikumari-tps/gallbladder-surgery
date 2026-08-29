@@ -122,9 +122,9 @@
     <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M2.9 12h18.2M12 2.8c2.4 2.6 3.7 5.8 3.7 9.2S14.4 18.6 12 21.2c-2.4-2.6-3.7-5.8-3.7-9.2S9.6 5.4 12 2.8Z"/></symbol>
     <symbol id="i-chevron-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5.5 6.5 6.5L9 18.5"/></symbol>
     <symbol id="i-arrow-ne" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8.4 7H17v8.6"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 6 12 12M18 6 6 18"/></symbol>
     <symbol id="i-directions" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2.5 9.5 9.5L12 21.5 2.5 12Z"/><path d="M9.6 13.6v-2.2a1.8 1.8 0 0 1 1.8-1.8h3.4"/><path d="m13.2 8 1.8 1.6-1.8 1.7"/></symbol>
-    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
     <symbol id="i-meal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5.6 2.6v6.6a2.3 2.3 0 0 0 4.6 0V2.6M7.9 11.5v9.9M7.9 2.6v6.2"/><path d="M17.8 2.6c-1.7 0-3 2.5-3 5.4 0 2.1 1 3.6 2.3 4.1v9.3"/></symbol>
     <symbol id="i-nausea" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M7.6 14.6c1.1-1.3 2.2-1.3 3.3 0 1.1 1.3 2.2 1.3 3.3 0 .6-.7 1.2-1 1.8-.9"/><path d="M8.9 9.2h.01M15.1 9.2h.01"/></symbol>
     <symbol id="i-thermo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.1 14.7V5.4a2.6 2.6 0 1 0-5.2 0v9.3a4.4 4.4 0 1 0 5.2 0Z"/><path d="M11.5 8.6v8.3"/></symbol>
@@ -141,9 +141,237 @@
 <a class="sr-only" href="#main">Skip to main content</a>
 
 <a class="brandmark" id="brandmark" href="#top" aria-label="Advitya Healthcares - Gallbladder Surgery">
-  <img src="/images/advitya_logo_nav.png" alt="Advitya Healthcares logo" width="234" height="200">
+  <img src="/images/advitya_logo_mark.png" alt="Advitya Healthcares logo" width="147" height="126">
   <span class="brandmark__text"><b>Advitya Healthcares</b><small>Science for Humanity</small></span>
 </a>
+
+<!-- ============ MOBILE HEADER + NAVIGATION (mobile/tablet only) ============ -->
+<div class="langfix">
+  <div class="lang notranslate" translate="no" data-lang-root>
+    <button class="lang__trigger" type="button" id="lang-trigger"
+            aria-expanded="false" aria-haspopup="listbox" aria-controls="lang-menu">
+      <svg class="lang__globe" aria-hidden="true"><use href="#i-globe"/></svg>
+      <span class="lang__current" data-lang-label>English</span>
+      <span class="lang__short" data-lang-short>EN</span>
+      <svg class="lang__chev" aria-hidden="true"><use href="#i-chevron"/></svg>
+    </button>
+    <ul class="lang__menu" id="lang-menu" role="listbox"
+        aria-labelledby="lang-trigger" tabindex="-1" hidden>
+      <li role="option" aria-selected="true">
+        <button class="lang__opt is-active" type="button" data-lang="en" lang="en">
+          <span class="lang__code">EN</span>
+          <span class="lang__name">English</span>
+          <svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg>
+        </button>
+      </li>
+      <li role="option" aria-selected="false">
+        <button class="lang__opt" type="button" data-lang="bn" lang="bn">
+          <span class="lang__code">BN</span>
+          <span class="lang__name">Bengali <i>বাংলা</i></span>
+          <svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg>
+        </button>
+      </li>
+      <li role="option" aria-selected="false">
+        <button class="lang__opt" type="button" data-lang="gu" lang="gu">
+          <span class="lang__code">GU</span>
+          <span class="lang__name">Gujarati <i>ગુજરાતી</i></span>
+          <svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg>
+        </button>
+      </li>
+      <li role="option" aria-selected="false">
+        <button class="lang__opt" type="button" data-lang="hi" lang="hi">
+          <span class="lang__code">HI</span>
+          <span class="lang__name">Hindi <i>हिन्दी</i></span>
+          <svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg>
+        </button>
+      </li>
+      <li role="option" aria-selected="false">
+        <button class="lang__opt" type="button" data-lang="kn" lang="kn">
+          <span class="lang__code">KN</span>
+          <span class="lang__name">Kannada <i>ಕನ್ನಡ</i></span>
+          <svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg>
+        </button>
+      </li>
+      <li role="option" aria-selected="false">
+        <button class="lang__opt" type="button" data-lang="ml" lang="ml">
+          <span class="lang__code">ML</span>
+          <span class="lang__name">Malayalam <i>മലയാളം</i></span>
+          <svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg>
+        </button>
+      </li>
+      <li role="option" aria-selected="false">
+        <button class="lang__opt" type="button" data-lang="mr" lang="mr">
+          <span class="lang__code">MR</span>
+          <span class="lang__name">Marathi <i>मराठी</i></span>
+          <svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg>
+        </button>
+      </li>
+      <li role="option" aria-selected="false">
+        <button class="lang__opt" type="button" data-lang="or" lang="or">
+          <span class="lang__code">OR</span>
+          <span class="lang__name">Odia <i>ଓଡ଼ିଆ</i></span>
+          <svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg>
+        </button>
+      </li>
+      <li role="option" aria-selected="false">
+        <button class="lang__opt" type="button" data-lang="ta" lang="ta">
+          <span class="lang__code">TA</span>
+          <span class="lang__name">Tamil <i>தமிழ்</i></span>
+          <svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<header class="mhead" id="mhead">
+  <a class="mhead__brand" href="#top" aria-label="Advitya Healthcares - Gallbladder Surgery">
+    <img src="/images/advitya_logo_mark.png" alt="Advitya Healthcares logo" width="147" height="126">
+    <span class="mhead__brandtext"><b>Advitya Healthcares</b><small>Science for Humanity</small></span>
+  </a>
+
+</header>
+
+
+
+<!-- ============ DESKTOP NAVBAR + MEGA MENU ============ -->
+<header class="dnav" id="dnav">
+  <div class="dnav__inner">
+    <a class="dnav__brand" href="#top" aria-label="Advitya Healthcares - Gallbladder Surgery">
+      <img src="/images/advitya_logo_mark.png" alt="Advitya Healthcares logo" width="147" height="126">
+      <span class="dnav__brandtext"><b>Advitya Healthcares</b><small>Science for Humanity</small></span>
+    </a>
+
+    <nav class="dnav__nav" aria-label="Primary">
+      <div class="mega" id="mega-wrap">
+        <button class="mega__trigger" type="button" id="mega-trigger"
+                aria-expanded="false" aria-controls="mega-panel" aria-haspopup="true">
+          Gallbladder Surgery <svg aria-hidden="true"><use href="#i-chevron"/></svg>
+        </button>
+
+        <div class="mega__panel" id="mega-panel" role="group" aria-labelledby="mega-trigger" hidden>
+          <div class="mega__grid">
+            <section class="mega__col">
+              <h3 class="mega__heading"><svg aria-hidden="true"><use href="#i-scan"/></svg>Gallbladder Conditions</h3>
+              <ul class="mega__list">
+                <li><a href="#top">Gallbladder Surgery Overview</a></li>
+                <li><a href="#conditions">Gallstones</a></li>
+                <li><a href="#conditions">Cholecystitis</a></li>
+                <li><a href="#conditions">Biliary Sludge</a></li>
+                <li><a href="#conditions">Gallbladder Polyps</a></li>
+                <li><a href="#what-is-gallbladder">What Is the Gallbladder?</a></li>
+              </ul>
+            </section>
+
+            <section class="mega__col">
+              <h3 class="mega__heading"><svg aria-hidden="true"><use href="#i-tools"/></svg>Treatments &amp; Patient Care</h3>
+              <ul class="mega__list">
+                <li><a href="#surgery">What Is Gallbladder Surgery?</a></li>
+                <li><a href="#repair-laparoscopic">Laparoscopic Gallbladder Surgery</a></li>
+                <li><a href="#repair-open">Open Gallbladder Surgery</a></li>
+                <li><a href="#surgery">Complex Gallbladder Surgery</a></li>
+                <li><a href="#journey">Recovery &amp; Aftercare</a></li>
+                <li><a href="#faqs">Frequently Asked Questions</a></li>
+              </ul>
+            </section>
+          </div>
+
+          <div class="mega__cta">
+            <div class="mega__cta-copy">
+              <b>Need Expert Gallbladder Care?</b>
+              <span>Consult our specialist surgical team for personalised treatment.</span>
+            </div>
+            <a class="mega__cta-btn" href="#book" data-book>
+              Book an Appointment <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <a class="dnav__link" href="#locations">Locations</a>
+      <a class="dnav__cta" href="#book" data-book><svg aria-hidden="true"><use href="#i-calendar"/></svg>Book Appointment</a>
+    </nav>
+  </div>
+</header>
+
+<button class="burger" type="button" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+  <svg><use href="#i-menu"/></svg>
+</button>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<aside class="drawer" id="drawer" aria-label="Menu" aria-hidden="true">
+  <div class="drawer__head">
+    <b>Gallbladder Surgery</b>
+    <button class="drawer__close" type="button" id="drawer-close" aria-label="Close menu"><svg><use href="#i-close"/></svg></button>
+  </div>
+
+  <div class="drawer__lang">
+      <div class="lang notranslate" translate="no" data-lang-root>
+        <button class="lang__trigger" type="button" id="lang-trigger-m"
+                aria-expanded="false" aria-haspopup="listbox" aria-controls="lang-menu-m">
+          <svg class="lang__globe" aria-hidden="true"><use href="#i-globe"/></svg>
+          <span class="lang__current" data-lang-label>English</span>
+          <svg class="lang__chev" aria-hidden="true"><use href="#i-chevron"/></svg>
+        </button>
+        <ul class="lang__menu" id="lang-menu-m" role="listbox" aria-labelledby="lang-trigger-m" tabindex="-1" hidden>
+          <li role="option" aria-selected="true"><button class="lang__opt is-active" type="button" data-lang="en" lang="en"><span class="lang__code">EN</span><span class="lang__name">English</span><svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg></button></li>
+          <li role="option" aria-selected="false"><button class="lang__opt" type="button" data-lang="hi" lang="hi"><span class="lang__code">HI</span><span class="lang__name">हिन्दी <i>Hindi</i></span><svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg></button></li>
+          <li role="option" aria-selected="false"><button class="lang__opt" type="button" data-lang="bn" lang="bn"><span class="lang__code">BN</span><span class="lang__name">বাংলা <i>Bengali</i></span><svg class="lang__tick" aria-hidden="true"><use href="#i-check"/></svg></button></li>
+        </ul>
+      </div>
+  </div>
+
+  <nav class="drawer__links" aria-label="Mobile">
+    <a class="is-current" href="#top" aria-current="page">Overview</a>
+    <a href="#about">About Gallbladder Surgery</a>
+    <a href="#surgery">What Is Gallbladder Surgery?</a>
+    <a href="#symptoms">First Symptoms</a>
+
+    <div class="acc">
+      <button class="acc__btn" type="button" aria-expanded="false" aria-controls="acc-conditions">
+        <span><svg aria-hidden="true"><use href="#i-scan"/></svg>Gallbladder Conditions</span>
+        <svg class="acc__chev" aria-hidden="true"><use href="#i-chevron"/></svg>
+      </button>
+      <div class="acc__panel" id="acc-conditions" hidden>
+        <a href="#conditions">Gallstones</a>
+        <a href="#conditions">Cholecystitis</a>
+        <a href="#conditions">Biliary Sludge</a>
+        <a href="#conditions">Gallbladder Polyps</a>
+        <a href="#what-is-gallbladder">What Is the Gallbladder?</a>
+      </div>
+    </div>
+
+    <div class="acc">
+      <button class="acc__btn" type="button" aria-expanded="false" aria-controls="acc-treatments">
+        <span><svg aria-hidden="true"><use href="#i-tools"/></svg>Treatments</span>
+        <svg class="acc__chev" aria-hidden="true"><use href="#i-chevron"/></svg>
+      </button>
+      <div class="acc__panel" id="acc-treatments" hidden>
+        <a href="#surgery">Surgery Options</a>
+        <a href="#repair-laparoscopic">Laparoscopic Gallbladder Surgery</a>
+        <a href="#repair-open">Open Gallbladder Surgery</a>
+        <a href="#surgery">Complex Gallbladder Surgery</a>
+      </div>
+    </div>
+
+    <div class="acc">
+      <button class="acc__btn" type="button" aria-expanded="false" aria-controls="acc-recovery">
+        <span><svg aria-hidden="true"><use href="#i-heart"/></svg>Recovery &amp; Aftercare</span>
+        <svg class="acc__chev" aria-hidden="true"><use href="#i-chevron"/></svg>
+      </button>
+      <div class="acc__panel" id="acc-recovery" hidden>
+        <a href="#journey">Care Journey</a>
+        <a href="#experience">Patient Experience</a>
+        <a href="#faqs">Frequently Asked Questions</a>
+      </div>
+    </div>
+
+    <a href="#why">Why Advitya Healthcares</a>
+    <a href="#locations">Locations</a>
+    <a href="#book" data-book>Book an Appointment</a>
+  </nav>
+</aside>
 
 <main id="main">
 
@@ -408,7 +636,7 @@
           <line x1="112" y1="96" x2="72" y2="46" stroke="#5D93C4" stroke-width="1.6"/><text x="42" y="38" fill="#2F6FA8">Liver</text>
           <line x1="132" y1="214" x2="72" y2="240" stroke="#0E8F86" stroke-width="1.6"/><text x="16" y="258" fill="#0E8F86">Gallbladder</text>
           <line x1="234" y1="218" x2="330" y2="188" stroke="#7FC9BF" stroke-width="1.6"/><text x="336" y="184" fill="#0E8F86">Bile ducts</text>
-          <line x1="300" y1="316" x2="330" y2="330" stroke="#C7A98A" stroke-width="1.6"/><text x="336" y="336">Small intestine</text>
+          <line x1="300" y1="316" x2="330" y2="330" stroke="#C7A98A" stroke-width="1.6"/><text x="434" y="336" text-anchor="end">Small intestine</text>
         </g>
       </svg>
       <figcaption>Illustrative diagram only &mdash; not to anatomical scale.</figcaption>
@@ -494,7 +722,7 @@
     </div>
 
     <div class="grid-2">
-      <article class="ocard reveal">
+      <article class="ocard reveal" id="repair-laparoscopic">
         <span class="ocard__top" aria-hidden="true"></span>
         <span class="ocard__tag">Approach 01</span>
         <h3>Laparoscopic Gallbladder Surgery</h3>
@@ -507,7 +735,7 @@
         </ul>
       </article>
 
-      <article class="ocard reveal">
+      <article class="ocard reveal" id="repair-open">
         <span class="ocard__top" aria-hidden="true"></span>
         <span class="ocard__tag">Approach 02</span>
         <h3>Open Gallbladder Surgery</h3>
@@ -793,7 +1021,7 @@
     <div class="footer__grid">
       <div>
         <div class="footer__brand">
-          <img src="/images/advitya_logo_nav.png" alt="Advitya Healthcares logo" width="234" height="200" loading="lazy">
+          <img src="/images/advitya_logo_mark.png" alt="Advitya Healthcares logo" width="147" height="126" loading="lazy">
           <span><b>Advitya Healthcares</b><span>Science for Humanity</span></span>
         </div>
         <p>Specialist gastrointestinal, pancreato-biliary and gallbladder surgical care, with consultations in Kolkata and Baruipur.</p>
@@ -871,6 +1099,20 @@
     </form>
   </div>
 </div>
+
+<!-- Google Translate engine. Its own UI is suppressed in CSS; the custom
+     selector above drives it. -->
+<div id="google_translate_element" aria-hidden="true"></div>
+<script>
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({
+    pageLanguage:'en',
+    includedLanguages:'en,bn,gu,hi,kn,ml,mr,or,ta',
+    autoDisplay:false
+  },'google_translate_element');
+}
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
 
 <script src="/js/main.js" defer></script>
 </body>

@@ -16,6 +16,174 @@
     syncBrand();
   }
 
+  /* ---------- mobile menu drawer ---------- */
+  var burger = $('#burger');
+  var drawer = $('#drawer');
+  var scrim  = $('#scrim');
+  var drawerClose = $('#drawer-close');
+
+  if (burger && drawer && scrim) {
+    var drawerOpen = false;
+
+    var setDrawer = function (open) {
+      if (open === drawerOpen) return;
+      drawerOpen = open;
+
+      if (open) {
+        scrim.hidden = false;
+        void drawer.offsetWidth;               // reflow, so the slide actually animates
+        drawer.classList.add('is-open');
+        scrim.classList.add('is-open');
+        drawer.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('drawer-open');
+        document.documentElement.classList.add('drawer-open');
+        burger.setAttribute('aria-expanded', 'true');
+        burger.setAttribute('aria-label', 'Close menu');
+        if (drawerClose) drawerClose.focus();
+      } else {
+        drawer.classList.remove('is-open');
+        scrim.classList.remove('is-open');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('drawer-open');
+        document.documentElement.classList.remove('drawer-open');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.setAttribute('aria-label', 'Open menu');
+        window.setTimeout(function () { if (!drawerOpen) scrim.hidden = true; }, 330);
+        if (!document.body.classList.contains('modal-open')) burger.focus();
+      }
+    };
+
+    burger.addEventListener('click', function () { setDrawer(!drawerOpen); });
+    scrim.addEventListener('click', function () { setDrawer(false); });
+    if (drawerClose) drawerClose.addEventListener('click', function () { setDrawer(false); });
+
+    // tapping any row closes the drawer so the target section is visible
+    drawer.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setDrawer(false);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!drawerOpen) return;
+      if (e.key === 'Escape') { setDrawer(false); return; }
+      if (e.key !== 'Tab') return;
+      var focusable = $$('a[href], button', drawer).filter(function (n) { return !n.disabled; });
+      if (!focusable.length) return;
+      var first = focusable[0], last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+
+    // going back to the desktop layout must never leave the drawer stuck open
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 900) setDrawer(false);
+    });
+  }
+
+  /* ---------- mobile drawer accordion ---------- */
+  $$('.acc__btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var panel = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!panel) return;
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      panel.hidden = open;
+    });
+  });
+
+  /* ---------- settle a reveal target before jumping to it ----------
+     .reveal starts at translateY(24px); if the browser computes the anchor
+     scroll while that transform is still applied, the section lands ~24px
+     high and hides under the fixed navbar. Reveal it first, then scroll. */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('.acc__panel a[href^="#"], .drawer__links a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (!id) return;
+    var target = document.getElementById(id);
+    if (!target) return;
+    if (target.classList.contains('reveal')) target.classList.add('is-in');
+    $$('.reveal', target).forEach(function (el) { el.classList.add('is-in'); });
+  }, true);
+
+  /* ---------- highlight the section currently on screen ---------- */
+  var navLinks = $$('.acc__panel a[href^="#"], .drawer__links a[href^="#"]');
+  if (navLinks.length && 'IntersectionObserver' in window) {
+    var byId = {};
+    navLinks.forEach(function (a) {
+      var id = a.getAttribute('href').slice(1);
+      if (!id) return;
+      (byId[id] = byId[id] || []).push(a);
+    });
+    var watched = Object.keys(byId)
+      .map(function (id) { return document.getElementById(id); })
+      .filter(Boolean);
+    var mark = function (id) {
+      navLinks.forEach(function (a) { a.classList.remove('is-current'); });
+      (byId[id] || []).forEach(function (a) { a.classList.add('is-current'); });
+    };
+    var sio = new IntersectionObserver(function (entries) {
+      var best = null;
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        if (!best || en.intersectionRatio > best.intersectionRatio) best = en;
+      });
+      if (best) mark(best.target.id);
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: [0, .25, .5] });
+    watched.forEach(function (el) { sio.observe(el); });
+  }
+
+  /* ---------- desktop mega menu (hover to open, click to toggle) ---------- */
+  var megaWrap = $('#mega-wrap');
+  var megaTrigger = $('#mega-trigger');
+  var megaPanel = $('#mega-panel');
+
+  if (megaWrap && megaTrigger && megaPanel) {
+    var megaOpen = false;
+    var megaTimer = null;
+
+    var setMega = function (open) {
+      if (open === megaOpen) return;
+      megaOpen = open;
+      megaWrap.setAttribute('data-open', String(open));
+      megaTrigger.setAttribute('aria-expanded', String(open));
+      if (open) {
+        megaPanel.hidden = false;
+      } else {
+        /* keep it in the DOM until the fade finishes, so nothing snaps */
+        window.setTimeout(function () {
+          if (!megaOpen) megaPanel.hidden = true;
+        }, 240);
+      }
+    };
+
+    var openLater = function () { window.clearTimeout(megaTimer); setMega(true); };
+    var closeLater = function () {
+      window.clearTimeout(megaTimer);
+      megaTimer = window.setTimeout(function () { setMega(false); }, 140);
+    };
+
+    megaWrap.addEventListener('mouseenter', openLater);
+    megaWrap.addEventListener('mouseleave', closeLater);
+    megaTrigger.addEventListener('focus', openLater);
+
+    megaTrigger.addEventListener('click', function (e) {
+      e.preventDefault();
+      setMega(!megaOpen);
+    });
+
+    /* a link inside the panel closes it */
+    $$('a', megaPanel).forEach(function (a) {
+      a.addEventListener('click', function () { setMega(false); });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && megaOpen) { setMega(false); megaTrigger.focus(); }
+    });
+    document.addEventListener('click', function (e) {
+      if (megaOpen && !e.target.closest('#mega-wrap')) setMega(false);
+    });
+  }
+
   /* ---------- scroll reveal ---------- */
   var revealables = $$('.reveal');
   if ('IntersectionObserver' in window) {
@@ -340,6 +508,146 @@
       aboutToggle.childNodes[0].nodeValue = open ? 'Read More ' : 'Read Less ';
     });
   }
+
+  /* ---------- language switcher (drives Google Translate) ---------- */
+  (function () {
+    var roots = $$('[data-lang-root]');
+    if (!roots.length) return;
+
+    var NAMES = {
+      en: 'English', bn: 'বাংলা',   gu: 'ગુજરાતી', hi: 'हिन्दी',  kn: 'ಕನ್ನಡ',
+      ml: 'മലയാളം', mr: 'मराठी',   or: 'ଓଡ଼ିଆ',    ta: 'தமிழ்'
+    };
+    var STORE = 'adv-lang';
+
+    /* the engine reads a googtrans cookie; write it for every host form so it
+       survives navigation on both apex and www */
+    function writeCookie(value) {
+      var host = location.hostname;
+      var bits = ['googtrans=' + value + ';path=/'];
+      if (host && host.indexOf('.') > -1) {
+        bits.push('googtrans=' + value + ';path=/;domain=' + host);
+        bits.push('googtrans=' + value + ';path=/;domain=.' + host);
+      }
+      bits.forEach(function (c) { document.cookie = c; });
+    }
+    function clearCookie() {
+      var past = ';expires=Thu, 01 Jan 1970 00:00:01 GMT';
+      var host = location.hostname;
+      document.cookie = 'googtrans=' + past + ';path=/';
+      if (host && host.indexOf('.') > -1) {
+        document.cookie = 'googtrans=' + past + ';path=/;domain=' + host;
+        document.cookie = 'googtrans=' + past + ';path=/;domain=.' + host;
+      }
+    }
+    function readCookie() {
+      var m = document.cookie.match(/googtrans=([^;]+)/);
+      if (!m) return null;
+      var parts = decodeURIComponent(m[1]).split('/');
+      return parts[2] || null;
+    }
+
+    function stored() {
+      try { return localStorage.getItem(STORE); } catch (e) { return null; }
+    }
+    function remember(code) {
+      try { localStorage.setItem(STORE, code); } catch (e) {}
+    }
+
+    /* paint every instance so desktop and drawer stay in step */
+    function paint(code) {
+      roots.forEach(function (root) {
+        var label = $('[data-lang-label]', root);
+        if (label) label.textContent = NAMES[code] || NAMES.en;
+        var short = $('[data-lang-short]', root);
+        if (short) short.textContent = (code || 'en').toUpperCase();
+        $$('.lang__opt', root).forEach(function (opt) {
+          var on = opt.getAttribute('data-lang') === code;
+          opt.classList.toggle('is-active', on);
+          var li = opt.closest('[role="option"]');
+          if (li) li.setAttribute('aria-selected', String(on));
+        });
+      });
+    }
+
+    function setOpen(root, open) {
+      root.classList.toggle('is-open', open);
+      var trigger = $('.lang__trigger', root);
+      var menu = $('.lang__menu', root);
+      if (trigger) trigger.setAttribute('aria-expanded', String(open));
+      if (menu) {
+        if (open) menu.hidden = false;
+        else window.setTimeout(function () {
+          if (!root.classList.contains('is-open')) menu.hidden = true;
+        }, 240);
+      }
+    }
+    function closeAll(except) {
+      roots.forEach(function (r) { if (r !== except) setOpen(r, false); });
+    }
+
+    function apply(code) {
+      remember(code);
+      paint(code);
+      if (code === 'en') clearCookie(); else writeCookie('/en/' + code);
+
+      /* if the engine is already loaded, switch in place; otherwise reload so
+         it picks the cookie up on boot */
+      var combo = $('.goog-te-combo');
+      if (combo) {
+        combo.value = (code === 'en' ? '' : code);
+        combo.dispatchEvent(new Event('change'));
+        if (code === 'en') window.setTimeout(function () { location.reload(); }, 60);
+      } else {
+        location.reload();
+      }
+    }
+
+    roots.forEach(function (root) {
+      var trigger = $('.lang__trigger', root);
+      if (trigger) {
+        trigger.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var open = !root.classList.contains('is-open');
+          closeAll(root);
+          setOpen(root, open);
+        });
+      }
+      $$('.lang__opt', root).forEach(function (opt) {
+        opt.addEventListener('click', function (e) {
+          e.stopPropagation();
+          setOpen(root, false);
+          apply(opt.getAttribute('data-lang'));
+        });
+      });
+      root.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && root.classList.contains('is-open')) {
+          setOpen(root, false);
+          if (trigger) trigger.focus();
+        }
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('[data-lang-root]')) closeAll(null);
+    });
+
+    paint(readCookie() || stored() || 'en');
+
+    /* the engine injects a banner and sets body{top:40px} inline, re-applying
+       it on every translation pass - keep clearing it so nothing shifts */
+    var clearShift = function () {
+      if (document.body.style.top && document.body.style.top !== '0px') {
+        document.body.style.top = '0px';
+      }
+    };
+    clearShift();
+    if ('MutationObserver' in window) {
+      new MutationObserver(clearShift).observe(document.body, {
+        attributes: true, attributeFilter: ['style']
+      });
+    }
+  })();
 
   /* ---------- footer year ---------- */
   var year = $('#year');
